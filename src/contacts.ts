@@ -1,6 +1,6 @@
 import localforage from "localforage";
-import { useCallback } from "react";
-
+import { matchSorter } from "match-sorter";
+// import sortBy from "sort-by";
 export const initialState = [
   {
     id: 1,
@@ -58,25 +58,38 @@ export const getContacts = async () => {
     const data = (await localforage.getItem("contacts")) as any;
     if (!data) {
       localforage.setItem("contacts", initialState);
+      // set(initialState)
     }
     const zmiena: TypeObj[] = [];
     for (const key in data) {
       zmiena.push({ id: key, ...data[key] });
     }
-    return zmiena;
+    return zmiena.sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
   } catch (error) {}
 };
 
 export const getListContacts = async (search: any) => {
   let state = (await getContacts()) as any[];
-  // console.log(state);
+  // if (search) {
+  // return (state = state.filter((e) => e.name.toLowerCase().includes(search)));
+  // }
   if (search) {
-    return (state = state.filter((e) => e.name.toLowerCase().includes(search)));
+    state = matchSorter(state, search, { keys: ["name", "lastName"] });
   }
+
   return state;
 };
 export const createContact = async () => {
   let state = (await getContacts()) as any[];
+  // let state = localforage.getItem("contacts") as any;
   const obj = {
     id: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
     name: "No name",
@@ -84,25 +97,23 @@ export const createContact = async () => {
     note: "noNote",
   };
   state.push(obj);
-  return await localforage.setItem("contacts", state);
+  await localforage.setItem("contacts", state);
+  return state;
 };
 export const getContactUser = async (id: any) => {
-  // console.log(id.contactId);
   let state = (await getContacts()) as any[];
   return (state = state.filter((e) => e.id === +id.contactId));
 };
 
 export const delateContact = async (id: any) => {
-  // console.log(id);
   let state = (await getContacts()) as any[];
-  // console.log(state);
+
   state = state.filter((e) => e.id !== +id.contactId);
   return await localforage.setItem("contacts", state);
 };
 
 export const upDate = async (obj: TypeObj) => {
   let state = (await getContacts()) as TypeObj[];
-  console.log(obj.id);
 
   state = state.map((e) => {
     if (e.id === +obj.id) {
@@ -110,7 +121,7 @@ export const upDate = async (obj: TypeObj) => {
     }
     return e;
   });
-  console.log(state);
-  return await localforage.setItem("contacts", state);
-  // (e.id === obj.id ? console.log(e) : e)));
+
+  await localforage.setItem("contacts", state);
+  return state;
 };

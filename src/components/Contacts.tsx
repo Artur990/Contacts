@@ -25,22 +25,29 @@ export const action = (queryClient: QueryClient) => () => {
 const Contacts = () => {
   const { params } = useLoaderData() as any;
   const { data, isLoading } = useQuery(getData(params));
-  console.log(params.contactId);
+
   if (isLoading) {
     return <div>isLoading</div>;
   }
 
   return (
     <div className="w-full  sm:h-1/2 bg-slate-400  sm:flex content-center rounded-lg ">
-      <div className=" sm:w-5/6 flex justify-center  border-slate-900 rounded-lg dark:border-gray-100 ">
-        <img src={Logo} alt="" className="  w-1/3 sm:w-2/3  h-4/5 " />
-      </div>
       <div className="px-3">
         {data?.map((e) => {
           return (
             <div key={e.id}>
-              <h1 className="text-left">{e?.name}</h1>
-              <h2 className="text-left">{e?.phoneNumber}</h2>
+              <div className=" sm:w-5/6 flex justify-center  border-slate-900 rounded-lg dark:border-gray-100 ">
+                <img
+                  src={e.ava_url}
+                  alt=""
+                  className="  w-1/3 sm:w-2/3  h-4/5 "
+                />
+              </div>
+              <div>
+                <h1 className="text-left">Name: {e?.name}</h1>
+                <h1 className="text-left">LastName: {e?.lastName}</h1>
+                <h2 className="text-left">{e?.phoneNumber}</h2>
+              </div>
             </div>
           );
         })}

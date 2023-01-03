@@ -57,9 +57,9 @@ function Root() {
             <div className="w-3/5 sm:w-2/5 bg-slate-700 rounded-lg ">
               <div className="flex">
                 <form role="search" className="flex  w-3/4 ">
-                  <div className="flex h-4 sm:h-8 w-full bg-white rounded-lg m-1">
-                    <button className="border-r-gray-800 h-4 sm:h-8">
-                      <BiSearchAlt2 className="bg-white hidden sm:block w-5  h-4 sm:h-8 rounded-lg" />
+                  <div className="flex h-4 sm:h-6 w-full bg-white rounded-lg m-1">
+                    <button className="border-r-gray-800 h-4 sm:h-6">
+                      <BiSearchAlt2 className="bg-white hidden sm:block w-5  h-4 sm:h-6 rounded-lg" />
                     </button>
                     <input
                       type="text"
@@ -76,7 +76,7 @@ function Root() {
                 </form>
                 <Form method="post" className=" w-1/3  sm:m-1">
                   <button
-                    className="w-10 sm:w-12 h-4 sm:h-8 text-xs sm:p-1 bg-slate-300 text-blue-600 font-medium rounded-md hover:bg-slate-400"
+                    className="w-10 sm:w-12 h-4 sm:h-6 text-xs sm:p-1 bg-slate-300 text-blue-600 font-medium rounded-md hover:bg-slate-400"
                     type="submit"
                   >
                     New

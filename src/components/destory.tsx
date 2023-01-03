@@ -7,7 +7,7 @@ export const action =
   (queryClient: QueryClient) =>
   async ({ params }: any) => {
     await delateContact(params);
-    console.log(params);
+    console.log("destory");
     alert("heej");
     queryClient.invalidateQueries();
     return redirect("/");
