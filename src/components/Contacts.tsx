@@ -36,17 +36,18 @@ const Contacts = () => {
         {data?.map((e) => {
           return (
             <div key={e.id}>
-              <div className=" sm:w-5/6 flex justify-center  border-slate-900 rounded-lg dark:border-gray-100 ">
+              <div className=" sm:w-1/2 flex justify-center  border-slate-900 rounded-lg dark:border-gray-100 ">
                 <img
                   src={e.ava_url}
                   alt=""
-                  className="  w-1/3 sm:w-2/3  h-4/5 "
+                  className="p-1 m-1 w-2/3 sm:w-full  h-1/4 sm:h-full   "
                 />
               </div>
               <div>
                 <h1 className="text-left">Name: {e?.name}</h1>
                 <h1 className="text-left">LastName: {e?.lastName}</h1>
-                <h2 className="text-left">{e?.phoneNumber}</h2>
+                <h2 className="text-left">Photo Number: {e?.phoneNumber}</h2>
+                <p>{e.note}</p>
               </div>
             </div>
           );
@@ -63,7 +64,7 @@ const Contacts = () => {
           <Form method="post" action="destory">
             <button
               type="submit"
-              className="w-12 h-5 bg-white rounded-md my-1  text-xs  "
+              className="w-12 h-5 bg-white rounded-md   text-xs  "
             >
               Delate
             </button>

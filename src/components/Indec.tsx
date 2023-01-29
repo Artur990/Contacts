@@ -2,7 +2,7 @@ import * as React from "react";
 
 export default function Index() {
   return (
-    <p id="zero-state">
+    <p className="p-2 text-center">
       This is a demo for integrating React Router with React Query.
     </p>
   );

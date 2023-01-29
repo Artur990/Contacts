@@ -29,42 +29,13 @@ export const action =
   async ({ request, params }: any) => {
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
-    console.log(params);
-    console.log(formData);
-
-    console.log("action console");
-    // queryClient.refetchQueries({ queryKey: ["contacts"] });
+    console.log(params.contactId);
+    await upDate(params.contactId, updates);
+    queryClient.refetchQueries({ queryKey: ["contacts"] });
     queryClient.invalidateQueries({ queryKey: ["contacts", "list"] });
-    return redirect("/");
+    return redirect(`/contacts/${params.contactId}`);
   };
 const Edit = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async ({
-    name,
-    lastName,
-    ava_url,
-    note,
-    twitter,
-    phoneNumber,
-  }) => {
-    const obj: any = {
-      id: +params.contactId,
-      name,
-      lastName,
-      twitter,
-      phoneNumber,
-      ava_url,
-      note,
-      isFav: false,
-    };
-    await upDate(obj);
-  };
-
   const navigate = useNavigate();
   const { params } = useLoaderData() as any;
   const { data } = useQuery<TypeObj[]>(getData(params));
@@ -72,28 +43,34 @@ const Edit = () => {
     <div className="w-full  bg-slate-400 rounded-lg">
       {data?.map((e) => {
         return (
-          <Form key={e.id} onSubmit={handleSubmit(onSubmit)} method="post">
+          <Form key={e.id} method="post">
             <div className="flex m-1">
               <h3 className="w-1/3 text-left text-xs mr-1">Name:</h3>
               <input
                 className="w-1/3 h-4 mr-0.5 p-1 text-xs rounded-md"
                 defaultValue={e.name}
-                {...register("name", { required: true })}
+                aria-label="name"
+                name="name"
+                // {...register("name", { required: true })}
               />
               <input
                 className="w-1/3 h-4 ml-0.5  p-1 text-xs rounded-md"
                 defaultValue={e?.lastName}
-                aria-label="First name"
+                aria-label="lastName"
+                name="lastName"
                 type="text"
-                {...register("lastName")}
+                // {...register("lastName")}
               />
             </div>
             <div className="flex justify-between m-1">
               <h3 className="w-1/3 text-left text-xs mr-1">Twitter:</h3>
               <input
                 className="w-3/4 h-4 ml-0.5  p-1 text-xs rounded-md"
+                aria-label="twitter"
                 defaultValue={e?.twitter}
-                {...register("twitter")}
+                name="twitter"
+                type="text"
+                // {...register("twitter")}
               />
             </div>
             <div className="flex justify-between m-1">
@@ -101,7 +78,10 @@ const Edit = () => {
               <input
                 className="w-3/4 h-4 ml-0.5  p-1 text-xs rounded-md"
                 defaultValue={e?.phoneNumber}
-                {...register("phoneNumber")}
+                aria-label="phoneNumber"
+                name="phoneNumber"
+                type="text"
+                // {...register("phoneNumber")}
               />
             </div>
             <div className="flex justify-between m-1">
@@ -109,7 +89,9 @@ const Edit = () => {
               <input
                 className="w-3/4  h-4 ml-0.5  p-1 text-xs rounded-md"
                 defaultValue={e.ava_url}
-                {...register("ava_url")}
+                aria-label="ava_url"
+                name="ava_url"
+                type="text"
               />
             </div>
             <div className="flex justify-between m-1">
@@ -117,7 +99,9 @@ const Edit = () => {
               <input
                 className="w-3/4  h-7 ml-0.5  p-1 text-xs rounded-md"
                 defaultValue={e.note}
-                {...register("note")}
+                aria-label="note"
+                name="note"
+                type="text"
               />
             </div>
 
@@ -142,14 +126,14 @@ const Edit = () => {
           </Form>
         );
       })}
-      <Form method="post" className=" w-1/3  sm:m-1">
+      {/* <Form method="post" className=" w-1/3  sm:m-1">
         <button
           className="w-10 sm:w-12 h-4 sm:h-6 text-xs sm:p-1 bg-slate-300 text-blue-600 font-medium rounded-md hover:bg-slate-400"
           type="submit"
         >
           New
         </button>
-      </Form>
+      </Form> */}
     </div>
   );
 };

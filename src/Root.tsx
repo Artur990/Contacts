@@ -7,7 +7,7 @@ import {
   createContact,
 } from "./contacts";
 import { BiSearchAlt2 } from "react-icons/bi";
-import "./App.css";
+// import "./App.css";
 import {
   Form,
   NavLink,
@@ -50,7 +50,7 @@ function Root() {
   const debouncedSubmit = useDebounce(submit, 500);
   return (
     <div className="App">
-      <h1 className="text-xl font-bold ">Contacts</h1>
+      <h1 className="text-xl font-bold text-center ">Contacts</h1>
       <main>
         <section className="flex justify-center rounded-lg ">
           <div className="w-4/5 rounded-xl sm:w-1/2 h-72  flex ">

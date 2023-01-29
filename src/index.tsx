@@ -15,10 +15,9 @@ import Edit, {
 } from "./components/Edit";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/query-core";
-import Test from "./components/Test";
 import Index from "./components/Indec";
-// import { App } from "./App";
 import { action } from "./components/destory";
+import ErrorPage from "./components/ErrorPage";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -27,7 +26,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     loader: rootLoader(queryClient),
     action: rootAction(queryClient),
     children: [
@@ -52,21 +51,13 @@ const router = createBrowserRouter([
         element: <Edit />,
         action: action(queryClient),
       },
-      {
-        path: "/test",
-        element: <Test />,
-        // loader: contactLoader(queryClient),
-        // action: contactAction(queryClient),
-      },
     ],
   },
 ]);
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      {/* <App /> */}
     </QueryClientProvider>
   </React.StrictMode>
 );

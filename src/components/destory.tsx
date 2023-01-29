@@ -1,6 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
 import { redirect } from "react-router-dom";
-import React from "react";
 import { delateContact } from "../contacts";
 
 export const action =
@@ -8,7 +7,7 @@ export const action =
   async ({ params }: any) => {
     await delateContact(params);
     console.log("destory");
-    alert("heej");
+    alert("Kontakt został usunięty");
     queryClient.invalidateQueries();
     return redirect("/");
   };
